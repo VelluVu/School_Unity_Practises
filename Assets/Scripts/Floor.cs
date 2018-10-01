@@ -25,6 +25,7 @@ public class Floor : MonoBehaviour {
         } else
         {
             GetComponent<Renderer>().material = inActive;
+            this.col.isTrigger = true;
         }
         /*if(FindObjectOfType<PlayerMovement>().isDead)
         {

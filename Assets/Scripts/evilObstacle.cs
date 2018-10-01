@@ -1,0 +1,81 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class evilObstacle : MonoBehaviour {
+
+    Vector3 move1;
+    Vector3 move2;
+    Vector3 burst1;
+    Vector3 burst2;
+    Vector3 burst3;
+    Vector3 burst4;
+    Vector3 startPos;
+    Rigidbody evilRB;
+
+    private void Start()
+    {
+        evilRB = gameObject.GetComponent<Rigidbody>();
+        move1.Set(Random.Range(-8 , 8), 0, 0);
+        move2.Set(0, Random.Range(-8, 8), 0);
+        burst1.Set(Random.Range(2, 6), 0, 0);
+        burst2.Set(Random.Range(-2, -6), 0, 0);
+        burst3.Set(Random.Range(-2, -6), Random.Range(-2, -6), 0);
+        burst4.Set(Random.Range(2, 6), Random.Range(2, 6), 0);
+        startPos.Set(transform.position.x, transform.position.y, 0);
+    }
+
+    void Update () {
+        if (transform.position.y > 25)
+        {
+            transform.position = startPos;
+        }
+        switch (Random.Range(0,9))
+        {
+            case 0:
+                Debug.Log("0");
+                transform.position += move1 * Time.deltaTime;
+                break;
+            case 1:
+                Debug.Log("1");
+                transform.position += move2 * Time.deltaTime;
+                break;
+            case 2:
+                Debug.Log("2");
+                transform.position -= move1 * Time.deltaTime;
+                break;
+            case 3:
+                Debug.Log("3");
+                transform.position -= move2 * Time.deltaTime;
+                break;
+            case 4:
+                Debug.Log("4");
+                transform.position -= burst3 * Time.deltaTime;
+                break;
+            case 5:
+                Debug.Log("5");
+                evilRB.AddForce(burst1);
+                break;
+            case 6:
+                Debug.Log("6");
+                evilRB.AddForce(burst2);
+                break;
+            case 7:
+                Debug.Log("5");
+                evilRB.AddForce(burst4);
+                break;
+            case 8:
+                Debug.Log("6");
+                evilRB.AddForce(burst2);
+                break;
+            default:
+                Debug.Log("default");
+                break;
+        }
+        
+	}
+    private void OnCollisionEnter(Collision collision)
+    {
+        evilRB.AddExplosionForce(100, collision.transform.position, 5);
+    }
+}

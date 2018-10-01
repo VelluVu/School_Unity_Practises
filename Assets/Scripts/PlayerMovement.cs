@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -13,18 +14,24 @@ public class PlayerMovement : MonoBehaviour {
     public bool isDead;
     public GameObject obstacleHit;
     int collisionTime;
-
+    static int index;
+    public CameraFollow camShaking;
     public Rigidbody rb;
     Vector3 startPos;
 
     private void Start()
     {
+        
         //player = findgameobjectwithtag="player"
-        startPos.Set(0, 0.5f, 0);
+        startPos.Set(0, 0.5f, 0);       
     }
 
     private void Update()
     {
+        if (transform.position.y < -20)
+        {
+            Death();
+        }
         if (Input.GetMouseButton(0))
         {
             //Debug.Log("Hiiren vasenta nappia painettu!" + force);
@@ -84,10 +91,15 @@ public class PlayerMovement : MonoBehaviour {
         }  
         if (collision.collider.tag == "obstacle")
         {
+            StartCoroutine(camShaking.Shake(0.4f, 0.4f));
+
             Destroy(Instantiate(obstacleHit, transform.position, Quaternion.identity), 1);
+            
             
             //this.TakeDamage(FindObjectOfType<Obstacle>().obstacleDamage);
             TakeDamage(collision.gameObject.GetComponent<Obstacle>().obstacleDamage);
+
+
         }
     }
 
@@ -108,7 +120,8 @@ public class PlayerMovement : MonoBehaviour {
         }
         if(other.tag == "end")
         {
-            this.gameObject.SetActive(false);
+            index++;
+            NextLevel(index);
         }
     }
 
@@ -145,4 +158,10 @@ public class PlayerMovement : MonoBehaviour {
         GUI.Label(new Rect(10, 0, 200, 20), "Going Down " + goingDown);
     }
 
+    public void NextLevel(int index) {
+        
+        SceneManager.LoadScene(index);    
+        
+    }
+    
 }

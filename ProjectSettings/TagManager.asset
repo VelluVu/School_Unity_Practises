@@ -7,6 +7,8 @@ TagManager:
   - floor
   - end
   - obstacle
+  - wall
+  - wayPoint
   layers:
   - Default
   - TransparentFX
