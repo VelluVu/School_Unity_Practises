@@ -5,13 +5,11 @@ using UnityEngine;
 public class MovingFloor : MonoBehaviour {
 
     Vector3 moveFloor;
-    Rigidbody mrb;
     bool upWards;
 
     private void Start()
     {       
         moveFloor.Set(0f, 2f, 0f);
-        mrb = gameObject.GetComponent<Rigidbody>();
     }
 
     private void Update()

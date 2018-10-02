@@ -10,6 +10,7 @@ public class evilObstacle : MonoBehaviour {
     Vector3 burst2;
     Vector3 burst3;
     Vector3 burst4;
+    Vector3 rotateBurst;
     Vector3 startPos;
     Rigidbody evilRB;
 
@@ -22,52 +23,65 @@ public class evilObstacle : MonoBehaviour {
         burst2.Set(Random.Range(-2, -6), 0, 0);
         burst3.Set(Random.Range(-2, -6), Random.Range(-2, -6), 0);
         burst4.Set(Random.Range(2, 6), Random.Range(2, 6), 0);
+        rotateBurst.Set(0, 0, 50 * Time.deltaTime);
         startPos.Set(transform.position.x, transform.position.y, 0);
     }
 
-    void Update () {
+    void FixedUpdate () {
+
         if (transform.position.y > 25)
         {
             transform.position = startPos;
         }
+        transform.Rotate(rotateBurst);
+
         switch (Random.Range(0,9))
         {
             case 0:
                 Debug.Log("0");
                 transform.position += move1 * Time.deltaTime;
                 break;
+
             case 1:
                 Debug.Log("1");
                 transform.position += move2 * Time.deltaTime;
                 break;
+
             case 2:
                 Debug.Log("2");
                 transform.position -= move1 * Time.deltaTime;
                 break;
+
             case 3:
                 Debug.Log("3");
                 transform.position -= move2 * Time.deltaTime;
                 break;
+
             case 4:
                 Debug.Log("4");
                 transform.position -= burst3 * Time.deltaTime;
                 break;
+
             case 5:
                 Debug.Log("5");
                 evilRB.AddForce(burst1);
                 break;
+
             case 6:
                 Debug.Log("6");
                 evilRB.AddForce(burst2);
                 break;
+
             case 7:
                 Debug.Log("5");
                 evilRB.AddForce(burst4);
                 break;
+
             case 8:
                 Debug.Log("6");
                 evilRB.AddForce(burst2);
                 break;
+
             default:
                 Debug.Log("default");
                 break;

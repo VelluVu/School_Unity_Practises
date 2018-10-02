@@ -12,7 +12,13 @@ public class PlayerMovement : MonoBehaviour {
     public bool launched;
     public bool goingDown;
     public bool isDead;
+    public float forcePercent;
+    float incForce;
+    bool maxForce;
+    bool launching;
     public GameObject obstacleHit;
+    public GameObject chargingControl;
+    public GameObject burningEffect;
     int collisionTime;
     static int index;
     public CameraFollow camShaking;
@@ -22,31 +28,63 @@ public class PlayerMovement : MonoBehaviour {
     private void Start()
     {
         
+        incForce = 10f;
+        maxForce = false;
         //player = findgameobjectwithtag="player"
         startPos.Set(0, 0.5f, 0);       
     }
 
     private void Update()
     {
+        forcePercent = force / 9;
+
+        if (launching)
+        {
+
+            Destroy(Instantiate(chargingControl, transform.position, Quaternion.identity), 0.5f);
+        }
+
         if (transform.position.y < -20)
         {
             Death();
         }
         if (Input.GetMouseButton(0))
         {
+            launching = true;
+
             //Debug.Log("Hiiren vasenta nappia painettu!" + force);
-            force += 20 * Time.deltaTime;
+            if (force >= 9)
+                maxForce = true;
+            if (force <= 0.1f)
+                maxForce = false;
+            if (!maxForce)
+            {
+                force += incForce * Time.deltaTime;
+                
+            } else
+            {
+                Destroy(Instantiate(burningEffect, transform.position, Quaternion.identity), 1f);
+                force -= incForce * Time.deltaTime;
+                TakeDamage(0.1f);
+            }
+                
+
+
             gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+
         } 
 
         if (Input.GetMouseButtonUp(0))
         {
+            launching = false;
             gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
     
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
             
             Vector3 dir = (mousePos - transform.position).normalized;
+
+            
 
             if (dir.y < 0)
             {
@@ -64,7 +102,8 @@ public class PlayerMovement : MonoBehaviour {
         
     }
 
-    void Launch(float launchForce, Vector3 launchDir)
+
+        void Launch(float launchForce, Vector3 launchDir)
     {
         launched = true;
         rb.AddForce(launchForce * launchDir, ForceMode.Impulse);
@@ -72,6 +111,7 @@ public class PlayerMovement : MonoBehaviour {
         goingDown = false;
         force = 0;
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
