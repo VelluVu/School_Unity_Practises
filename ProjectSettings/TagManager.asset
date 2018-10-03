@@ -9,6 +9,14 @@ TagManager:
   - obstacle
   - wall
   - wayPoint
+  - Buttons
+  - quit
+  - play
+  - ragequit
+  - hit
+  - jump
+  - finish
+  - audioPlayer
   layers:
   - Default
   - TransparentFX

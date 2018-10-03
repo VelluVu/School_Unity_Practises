@@ -38,52 +38,52 @@ public class evilObstacle : MonoBehaviour {
         switch (Random.Range(0,9))
         {
             case 0:
-                Debug.Log("0");
+               
                 transform.position += move1 * Time.deltaTime;
                 break;
 
             case 1:
-                Debug.Log("1");
+                
                 transform.position += move2 * Time.deltaTime;
                 break;
 
             case 2:
-                Debug.Log("2");
+                
                 transform.position -= move1 * Time.deltaTime;
                 break;
 
             case 3:
-                Debug.Log("3");
+                
                 transform.position -= move2 * Time.deltaTime;
                 break;
 
             case 4:
-                Debug.Log("4");
+              
                 transform.position -= burst3 * Time.deltaTime;
                 break;
 
             case 5:
-                Debug.Log("5");
+             
                 evilRB.AddForce(burst1);
                 break;
 
             case 6:
-                Debug.Log("6");
+               
                 evilRB.AddForce(burst2);
                 break;
 
             case 7:
-                Debug.Log("5");
+               
                 evilRB.AddForce(burst4);
                 break;
 
             case 8:
-                Debug.Log("6");
+              
                 evilRB.AddForce(burst2);
                 break;
 
             default:
-                Debug.Log("default");
+               
                 break;
         }
         
