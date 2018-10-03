@@ -8,7 +8,7 @@ public class MovingObstacle : MonoBehaviour {
 
     private void Start()
     {
-        patrolMovement.Set(5f, 0, 0);
+        patrolMovement.Set(2f, 0, 0);
     }
 
     private void Update()

@@ -22,6 +22,7 @@ public class Floor : MonoBehaviour {
         if(gameObject.transform.position.y < player.transform.position.y)
         {
             GetComponent<Renderer>().material = active;
+            this.col.isTrigger = false;
         } else
         {
             GetComponent<Renderer>().material = inActive;

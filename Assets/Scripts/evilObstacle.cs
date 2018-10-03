@@ -17,19 +17,19 @@ public class evilObstacle : MonoBehaviour {
     private void Start()
     {
         evilRB = gameObject.GetComponent<Rigidbody>();
-        move1.Set(Random.Range(-8 , 8), 0, 0);
-        move2.Set(0, Random.Range(-8, 8), 0);
-        burst1.Set(Random.Range(2, 6), 0, 0);
-        burst2.Set(Random.Range(-2, -6), 0, 0);
-        burst3.Set(Random.Range(-2, -6), Random.Range(-2, -6), 0);
-        burst4.Set(Random.Range(2, 6), Random.Range(2, 6), 0);
+        move1.Set(Random.Range(-5 , 5), 0, 0);
+        move2.Set(0, Random.Range(-5, 5), 0);
+        burst1.Set(Random.Range(1, 4), 0, 0);
+        burst2.Set(Random.Range(-1, -4), 0, 0);
+        burst3.Set(Random.Range(-1, -4), Random.Range(-1, -4), 0);
+        burst4.Set(Random.Range(1, 4), Random.Range(1, 4), 0);
         rotateBurst.Set(0, 0, 50 * Time.deltaTime);
         startPos.Set(transform.position.x, transform.position.y, 0);
     }
 
     void FixedUpdate () {
 
-        if (transform.position.y > 25)
+        if (transform.position.y > 15 || transform.position.x > 5 && transform.position.x < -5)
         {
             transform.position = startPos;
         }
@@ -90,6 +90,7 @@ public class evilObstacle : MonoBehaviour {
 	}
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.collider.tag == "wall" && collision.collider.tag == "Player")
         evilRB.AddExplosionForce(100, collision.transform.position, 5);
     }
 }

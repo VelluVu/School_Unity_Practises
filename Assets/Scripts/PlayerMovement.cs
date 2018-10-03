@@ -145,7 +145,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "floor")
+        /*if(other.tag == "floor")
         {
             Debug.Log("Hit floor");
 
@@ -154,10 +154,10 @@ public class PlayerMovement : MonoBehaviour {
                 
                 other.isTrigger = false;
                 
-            }
 
             
         }
+            }*/
         if(other.tag == "end")
         {
             index++;
