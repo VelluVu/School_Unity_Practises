@@ -7,10 +7,12 @@ public class AudioControl : MonoBehaviour {
     public List<GameObject> soundPrefabs = new List<GameObject>();
 
     
-    public void GetSound (string tag)
+    public void GetSound (int index)
     {
 
-        Instantiate(GameObject.FindGameObjectWithTag(tag));
+        Instantiate(soundPrefabs[index]);
+
+        //Instantiate(GameObject.FindGameObjectWithTag(tag));
                             
     }
 }

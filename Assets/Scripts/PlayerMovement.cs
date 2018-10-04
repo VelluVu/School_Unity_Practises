@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour {
         maxForce = false;
         //player = findgameobjectwithtag="player"
         startPos.Set(0, 0.5f, 0);
-        soundEffects.GetSound("finish");
+        soundEffects.GetSound(2);
         
     }
 
@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour {
 
     void Launch(float launchForce, Vector3 launchDir)
     {
-        soundEffects.GetSound("jump");
+        soundEffects.GetSound(0);
         launched = true;
         jumpCount++;
         rb.AddForce(launchForce * launchDir, ForceMode.Impulse);
@@ -170,7 +170,7 @@ public class PlayerMovement : MonoBehaviour {
         }  
         if (collision.collider.tag == "obstacle")
         {
-            soundEffects.GetSound("hit");
+            soundEffects.GetSound(1);
 
             StartCoroutine(camShaking.Shake(0.4f, 0.4f));
 
@@ -209,6 +209,7 @@ public class PlayerMovement : MonoBehaviour {
             }*/
         if(other.tag == "end")
         {
+            soundEffects.GetSound(2);
             index++;
             NextLevel(index);
         }
