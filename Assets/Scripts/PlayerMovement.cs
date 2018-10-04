@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour {
         if (rb.velocity.y < 0 && goingDown == false)
         {
             goingDown = true;
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.cyan;
+           
             highPoint = transform.position.y;
         }
     }
@@ -73,8 +73,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetMouseButtonUp(0))
         {
             launching = false;
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
-
+            
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mousePos.z = 0;
 
@@ -114,11 +113,6 @@ public class PlayerMovement : MonoBehaviour {
                 force -= incForce * Time.deltaTime;
                 TakeDamage(0.1f);
             }
-
-
-
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
-
         }    
     }
 
@@ -145,7 +139,6 @@ public class PlayerMovement : MonoBehaviour {
         launched = true;
         jumpCount++;
         rb.AddForce(launchForce * launchDir, ForceMode.Impulse);
-        gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
         goingDown = false;
         force = 0;
     }
@@ -164,6 +157,7 @@ public class PlayerMovement : MonoBehaviour {
                 //damage = collision.transform.position.y + highPoint;
                 damage = Mathf.Sqrt(2f * Mathf.Abs(Physics.gravity.y) * highPoint - transform.position.y);
                 TakeDamage(damage);
+                soundEffects.GetSound(3);
             }
             launched = false;
             goingDown = false;
@@ -175,12 +169,14 @@ public class PlayerMovement : MonoBehaviour {
             StartCoroutine(camShaking.Shake(0.4f, 0.4f));
 
             Destroy(Instantiate(obstacleHit, transform.position, Quaternion.identity), 1);
-            
-            
+        
             //this.TakeDamage(FindObjectOfType<Obstacle>().obstacleDamage);
             TakeDamage(collision.gameObject.GetComponent<Obstacle>().obstacleDamage);
 
-
+        }
+        if (collision.collider.tag == "wall")
+        {
+            soundEffects.GetSound(3);
         }
     }
 
