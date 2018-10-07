@@ -10,7 +10,7 @@ public class AudioControl : MonoBehaviour {
     public void GetSound (int index)
     {
 
-        Instantiate(soundPrefabs[index]);
+        Destroy(Instantiate(soundPrefabs[index]),0.5f);
 
         //Instantiate(GameObject.FindGameObjectWithTag(tag));
                             

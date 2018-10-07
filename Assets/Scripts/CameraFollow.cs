@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour {
 
-    public GameObject player;
+    Transform player;
     bool isShaking;
+    public float smoothTime = 0.3F;
+    private Vector3 velocity = Vector3.zero;
+    private Vector3 offset;
 
-    private Vector3 offset;        
-
-    
-    void Start()
+    private void Start()
     {
-        
-        offset = transform.position - player.transform.position;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
-    
     void LateUpdate()
     {
-        if(!isShaking)
-        transform.position = player.transform.position + offset;
+        if (!isShaking)
+        {
+            //transform.position = player.transform.position;
+
+            //offset = transform.position - player.position;
+            // Define a target position above and behind the target transform
+            Vector3 targetPosition = player.TransformPoint(new Vector3(0, 0, -10));
+
+            // Smoothly move the camera towards that target position
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        }
     }
     
     public IEnumerator Shake (float duration, float magnitude)
@@ -41,7 +48,5 @@ public class CameraFollow : MonoBehaviour {
         }
         isShaking = false;
 
-        
-     
     }
 }

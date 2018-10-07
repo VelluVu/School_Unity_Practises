@@ -17,6 +17,10 @@ TagManager:
   - jump
   - finish
   - audioPlayer
+  - evilobs
+  - obstaclehit
+  - chargingeffect
+  - overcharge
   layers:
   - Default
   - TransparentFX

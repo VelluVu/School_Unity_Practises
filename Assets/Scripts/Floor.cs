@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour {
 
-    public BoxCollider col;
-    public GameObject player;
+    BoxCollider2D col;
+    GameObject player;
     public Material inActive;
     public Material active;
     
@@ -13,7 +13,7 @@ public class Floor : MonoBehaviour {
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        
+        col = GetComponent<BoxCollider2D>();
         
     }
 
@@ -37,8 +37,8 @@ public class Floor : MonoBehaviour {
         }*/
         
     }
-    public void ResetColliders()
+    public BoxCollider2D getCol()
     {
-        
+        return col;
     }
 }

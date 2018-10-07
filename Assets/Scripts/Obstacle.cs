@@ -6,11 +6,11 @@ public class Obstacle : MonoBehaviour {
 
     public float obstacleDamage;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.collider.tag == "Player")
         {
-            gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            
         }
         
     }

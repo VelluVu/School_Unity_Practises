@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour {
 
+    /// <summary>
+    /// Tee keräiltäviä objecteja:
+    /// vaikuttaa painovoimaan keventää ja kasvattaa
+    /// portaali teleportaa pallon toiseen portaaliin
+    /// 
+    /// </summary>
     public float health;
     public float force;
     public float highPoint;
@@ -23,14 +29,18 @@ public class PlayerMovement : MonoBehaviour {
     int collisionTime;
     int lastLevel;
     static int index;
-    public CameraFollow camShaking;
-    public Rigidbody rb;
+    GameObject cam;
+    CameraFollow camShaking;
+    Rigidbody2D rb;
     Vector3 startPos;
     GameObject soundClass;
     AudioControl soundEffects;
 
     private void Start()
     {
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        camShaking = cam.GetComponent<CameraFollow>();
         soundClass = GameObject.FindGameObjectWithTag("audioPlayer");
         soundEffects = soundClass.GetComponent<AudioControl>();
         index = SceneManager.GetActiveScene().buildIndex;
@@ -92,7 +102,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void ChargingForce()
     {
-        if (Input.GetMouseButton(0) && jumpCount < 2)
+        if (Input.GetMouseButton(0) && jumpCount < 2 && !launched)
         {
             launching = true;
 
@@ -138,16 +148,16 @@ public class PlayerMovement : MonoBehaviour {
         soundEffects.GetSound(0);
         launched = true;
         jumpCount++;
-        rb.AddForce(launchForce * launchDir, ForceMode.Impulse);
+        rb.AddForce(launchForce * launchDir, ForceMode2D.Impulse);
         goingDown = false;
         force = 0;
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "floor")
         {
+            
             jumpCount = 0;
             Debug.Log("collides with floor");
 
@@ -159,10 +169,13 @@ public class PlayerMovement : MonoBehaviour {
                 TakeDamage(damage);
                 soundEffects.GetSound(3);
             }
+
             launched = false;
             goingDown = false;
+
         }  
-        if (collision.collider.tag == "obstacle")
+
+        if (collision.collider.tag == "obstacle" || collision.collider.tag == "evilobs")
         {
             soundEffects.GetSound(1);
 
@@ -174,21 +187,23 @@ public class PlayerMovement : MonoBehaviour {
             TakeDamage(collision.gameObject.GetComponent<Obstacle>().obstacleDamage);
 
         }
+
         if (collision.collider.tag == "wall")
         {
             soundEffects.GetSound(3);
         }
     }
 
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if(collision.collider.tag == "floor")
         {
             jumpCount = 0;
+            launched = false;
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         /*if(other.tag == "floor")
         {
@@ -229,7 +244,7 @@ public class PlayerMovement : MonoBehaviour {
 
         foreach (var item in FindObjectsOfType<Floor>())
         {
-            item.col.isTrigger = true;
+            item.getCol().isTrigger = true;
         }
          
     }
