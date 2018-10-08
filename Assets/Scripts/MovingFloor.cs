@@ -18,13 +18,13 @@ public class MovingFloor : MonoBehaviour {
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "wall" || collision.collider.tag == "floor" || collision.collider.tag == "obstacle") {
             moveFloor = -moveFloor;
         }
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if ( other.tag == "wall" || other.tag == "floor" || other.tag == "obstacle")
         {

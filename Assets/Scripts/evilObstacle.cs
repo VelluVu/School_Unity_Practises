@@ -9,11 +9,11 @@ public class evilObstacle : MonoBehaviour {
     Vector3 burst2;
     Vector3 rotateBurst;  
     Vector3 startPos;
-    Rigidbody evilRB;
+    Rigidbody2D evilRB;
 
     private void Start()
     {
-        evilRB = gameObject.GetComponent<Rigidbody>();
+        evilRB = gameObject.GetComponent<Rigidbody2D>();
         move1.Set(Random.Range(-5 , 5), 0, 0);      
         burst1.Set(Random.Range(1, 4), 0, 0);           
         burst2.Set(Random.Range(1, 4), Random.Range(1, 4), 0);
@@ -93,9 +93,9 @@ public class evilObstacle : MonoBehaviour {
         }
         
 	}
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag != "floor")
-        evilRB.AddExplosionForce(300, collision.transform.position, 5);
+        if (collision.collider.tag != "floor") { }
+        
     }
 }

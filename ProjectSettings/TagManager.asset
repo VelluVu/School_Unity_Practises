@@ -21,6 +21,9 @@ TagManager:
   - obstaclehit
   - chargingeffect
   - overcharge
+  - pickup
+  - portal
+  - portalout
   layers:
   - Default
   - TransparentFX
