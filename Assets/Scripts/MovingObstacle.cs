@@ -22,7 +22,7 @@ public class MovingObstacle : MonoBehaviour {
     {
         if (collision.collider.tag == "wall" || collision.collider.tag == "Player") {
 
-            patrolMovement = -patrolMovement;
+            this.patrolMovement *= -1;
 
         }
     }

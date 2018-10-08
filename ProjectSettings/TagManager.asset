@@ -24,6 +24,7 @@ TagManager:
   - pickup
   - portal
   - portalout
+  - portalIn
   layers:
   - Default
   - TransparentFX

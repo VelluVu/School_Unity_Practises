@@ -2,34 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Portal : MonoBehaviour {
+public class PortalIn : MonoBehaviour {
 
     BoxCollider2D col;
     Transform player;
-    Transform portalOut;
     Transform portalIn;
-    
+    Transform portalOut;
+    float distance;
 
     private void Start()
     {
+        distance = 0.5f;
         col = gameObject.GetComponent<BoxCollider2D>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();    
+        portalIn = GameObject.FindGameObjectWithTag("portalIn").GetComponent<Transform>();
         portalOut = GameObject.FindGameObjectWithTag("portalout").GetComponent<Transform>();
-        portalIn = GameObject.FindGameObjectWithTag("portal").GetComponent<Transform>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            if (player.position == portalOut.position)
-            {
-                player.position = portalIn.position;
-            }
-
+                   
+            if (Vector2.Distance(player.position, portalIn.position) > distance)
             player.position = portalOut.position;
-
-            
+           
+           
         }
     }
+    
 }

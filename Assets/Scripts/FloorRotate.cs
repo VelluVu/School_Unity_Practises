@@ -12,7 +12,7 @@ public class FloorRotate : MonoBehaviour {
 
     void Start()
     {
-        speed = 1f;
+        speed = 0.4f;
         maxS = true;
         scaleRate.Set(speed * Time.deltaTime, 0, 0);
         maxScale = (transform.localScale);
