@@ -15,8 +15,8 @@ public class PickUpNeg : MonoBehaviour {
     {
         if (collision.tag == "Player")
         {
-            Physics2D.gravity.Set(0,-9.81f);
-            Physics2D.gravity *= 1.5f;
+            Physics2D.gravity.Set(0, -9.81f);
+            Physics2D.gravity *= 2f;
             Destroy(gameObject);
         }
     }
