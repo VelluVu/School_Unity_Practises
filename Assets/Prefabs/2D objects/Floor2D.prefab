@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212093895149127776}
   - component: {fileID: 61475948520366782}
   - component: {fileID: 114468310221469830}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Floor2D
   m_TagString: floor
   m_Icon: {fileID: 0}

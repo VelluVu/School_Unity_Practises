@@ -175,16 +175,32 @@ public class PlayerMovement : MonoBehaviour {
 
         }  
 
-        if (collision.collider.tag == "obstacle" || collision.collider.tag == "evilobs")
+        if (collision.collider.tag == "obstacle" || collision.collider.tag == "evilobs" || collision.collider.tag == "chaserobs")
         {
             soundEffects.GetSound(1);
 
             StartCoroutine(camShaking.Shake(0.4f, 0.4f));
 
             Destroy(Instantiate(obstacleHit, transform.position, Quaternion.identity), 1);
-        
+
             //this.TakeDamage(FindObjectOfType<Obstacle>().obstacleDamage);
-            TakeDamage(collision.gameObject.GetComponent<Obstacle>().obstacleDamage);
+            switch (collision.collider.tag)
+            {
+                case "obstacle":
+                    TakeDamage(collision.gameObject.GetComponent<Obstacle>().obstacleDamage);
+                    break;
+                case "evilobs":
+                    TakeDamage(collision.gameObject.GetComponent<EvilObstacle>().GetEvilObsDmg());
+                    break;
+                case "chaserobs":
+                    TakeDamage(collision.gameObject.GetComponent<ObstacleChase>().GetChaseObstacleDamage());
+                    break;
+                default:
+                    break;
+            }
+            
+
+            
 
         }
 

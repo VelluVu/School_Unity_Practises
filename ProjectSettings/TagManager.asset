@@ -25,6 +25,7 @@ TagManager:
   - portal
   - portalout
   - portalIn
+  - chaserobs
   layers:
   - Default
   - TransparentFX
@@ -35,9 +36,9 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
+  - EvilsOwnLayer
+  - Base
+  - Floor
   - 
   - 
   - 

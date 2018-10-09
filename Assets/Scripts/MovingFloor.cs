@@ -5,10 +5,12 @@ using UnityEngine;
 public class MovingFloor : MonoBehaviour {
 
     Vector3 moveFloor;
+    Rigidbody2D rb;
     bool upWards;
 
     private void Start()
-    {       
+    {
+        rb = gameObject.GetComponent<Rigidbody2D>();
         moveFloor.Set(0f, 2f, 0);
     }
 
@@ -21,14 +23,14 @@ public class MovingFloor : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.tag == "wall" || collision.collider.tag == "floor" || collision.collider.tag == "obstacle") {
-            moveFloor *= -1;
+            moveFloor = -moveFloor;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if ( other.tag == "wall" || other.tag == "floor" || other.tag == "obstacle")
         {
-            moveFloor *= -1;
+            moveFloor = -moveFloor;
         }
     }
 }

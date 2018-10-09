@@ -2,26 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class evilObstacle : MonoBehaviour {
+public class EvilObstacle : MonoBehaviour  {
 
+    Transform player;
     Vector3 move1; 
     Vector3 burst1; 
     Vector3 burst2;
     Vector3 rotateBurst;  
     Vector3 startPos;
     Rigidbody2D evilRB;
+    float chaseSpeed;
+    float minR;
+    float maxR;
+    float evilObstacleDamage;
 
     private void Start()
     {
+        evilObstacleDamage = 40f;
+        chaseSpeed = 1f;
+        minR = -5f;
+        maxR = 5f;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         evilRB = gameObject.GetComponent<Rigidbody2D>();
-        move1.Set(Random.Range(-5 , 5), 0, 0);      
-        burst1.Set(Random.Range(1, 4), 0, 0);           
-        burst2.Set(Random.Range(1, 4), Random.Range(1, 4), 0);
+        move1.Set(Random.Range(minR, maxR), 0, 0);      
+        burst1.Set(Random.Range(minR, maxR), 0, 0);           
+        burst2.Set(Random.Range(minR, maxR), Random.Range(minR, maxR), 0);
         rotateBurst.Set(0, 0, 50 * Time.deltaTime);
         startPos.Set(transform.position.x, transform.position.y, 0);
     }
 
+    public float GetEvilObsDmg()
+    {
+        return this.evilObstacleDamage;
+    }
+
     void FixedUpdate () {
+
+        if (Vector2.Distance(player.position, transform.position) < 3)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, player.position, chaseSpeed *  Time.deltaTime);
+                }
 
         if (transform.position.y > 15 || transform.position.x > 5 && transform.position.x < -5)
         {
@@ -95,7 +115,10 @@ public class evilObstacle : MonoBehaviour {
 	}
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag != "floor") { }
+        if (collision.collider.tag != "floor") {
+
+            
+        }
         
     }
 }
